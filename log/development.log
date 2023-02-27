@@ -1,0 +1,1724 @@
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20230226201143)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230226201143"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateSleepRecords (20230226201144)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "sleep_records" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "sleep_time" datetime(6), "wake_time" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_0f78b0de7b"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_sleep_records_on_user_id" ON "sleep_records" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230226201144"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUserFollows (20230226201145)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "user_follows" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "follower_id" integer NOT NULL, "followee_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_12475d0cec"
+FOREIGN KEY ("follower_id")
+  REFERENCES "followers" ("id")
+, CONSTRAINT "fk_rails_ee86781160"
+FOREIGN KEY ("followee_id")
+  REFERENCES "followees" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_user_follows_on_follower_id" ON "user_follows" ("follower_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_user_follows_on_followee_id" ON "user_follows" ("followee_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230226201145"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-02-26 21:13:51.296651"], ["updated_at", "2023-02-26 21:13:51.296651"]]
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for ::1 at 2023-02-26 13:14:57 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/simon/.rbenv/versions/3.2.1/lib/ruby/gems/3.2.0/gems/railties-7.0.4.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/simon/.rbenv/versions/3.2.1/lib/ruby/gems/3.2.0/gems/railties-7.0.4.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 2.7ms | Allocations: 604)
+Completed 200 OK in 18ms (Views: 8.1ms | ActiveRecord: 0.0ms | Allocations: 5090)
+
+
+Started GET "/users" for ::1 at 2023-02-26 13:15:04 -0800
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  Rendered users/index.html.erb within layouts/application (Duration: 0.6ms | Allocations: 94)
+  Rendered layout layouts/application.html.erb (Duration: 217.7ms | Allocations: 89660)
+Completed 200 OK in 220ms (Views: 219.0ms | ActiveRecord: 0.0ms | Allocations: 90520)
+
+
+Started GET "/sleep_records" for ::1 at 2023-02-26 13:15:20 -0800
+  
+ActionController::RoutingError (No route matches [GET] "/sleep_records"):
+  
+Started GET "/users/1/sleep_records" for ::1 at 2023-02-26 13:15:40 -0800
+Processing by SleepRecordsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mSleepRecord Load (0.8ms)[0m  [1m[34mSELECT "sleep_records".* FROM "sleep_records" WHERE "sleep_records"."user_id" = ? ORDER BY "sleep_records"."sleep_time" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:6:in `index'
+Completed 200 OK in 29ms (Views: 10.2ms | ActiveRecord: 1.1ms | Allocations: 4520)
+
+
+Started GET "/users/1/sleep_records" for ::1 at 2023-02-26 13:16:00 -0800
+Processing by SleepRecordsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mSleepRecord Load (0.1ms)[0m  [1m[34mSELECT "sleep_records".* FROM "sleep_records" WHERE "sleep_records"."user_id" = ? ORDER BY "sleep_records"."sleep_time" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:6:in `index'
+Completed 200 OK in 17ms (Views: 15.6ms | ActiveRecord: 0.1ms | Allocations: 814)
+
+
+Started GET "/users/1/sleep_records" for ::1 at 2023-02-26 13:16:01 -0800
+Processing by SleepRecordsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mSleepRecord Load (0.1ms)[0m  [1m[34mSELECT "sleep_records".* FROM "sleep_records" WHERE "sleep_records"."user_id" = ? ORDER BY "sleep_records"."sleep_time" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:6:in `index'
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.1ms | Allocations: 822)
+
+
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Asmara"], ["created_at", "2023-02-26 21:16:51.874272"], ["updated_at", "2023-02-26 21:16:51.874272"]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/users/1/sleep_records" for ::1 at 2023-02-26 13:16:57 -0800
+Processing by SleepRecordsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mSleepRecord Load (0.1ms)[0m  [1m[34mSELECT "sleep_records".* FROM "sleep_records" WHERE "sleep_records"."user_id" = ? ORDER BY "sleep_records"."sleep_time" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:6:in `index'
+Completed 200 OK in 2ms (Views: 0.9ms | ActiveRecord: 0.1ms | Allocations: 813)
+
+
+Started GET "/users/1/sleep_records" for ::1 at 2023-02-26 13:16:59 -0800
+Processing by SleepRecordsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mSleepRecord Load (0.1ms)[0m  [1m[34mSELECT "sleep_records".* FROM "sleep_records" WHERE "sleep_records"."user_id" = ? ORDER BY "sleep_records"."sleep_time" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:6:in `index'
+Completed 200 OK in 2ms (Views: 0.8ms | ActiveRecord: 0.1ms | Allocations: 813)
+
+
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSleepRecord Create (1.5ms)[0m  [1m[32mINSERT INTO "sleep_records" ("user_id", "sleep_time", "wake_time", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 1], ["sleep_time", "2023-02-23 23:00:00"], ["wake_time", nil], ["created_at", "2023-02-26 21:22:36.842914"], ["updated_at", "2023-02-26 21:22:36.842914"]]
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/users/1/sleep_records" for ::1 at 2023-02-26 13:22:42 -0800
+Processing by SleepRecordsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mSleepRecord Load (1.1ms)[0m  [1m[34mSELECT "sleep_records".* FROM "sleep_records" WHERE "sleep_records"."user_id" = ? ORDER BY "sleep_records"."sleep_time" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:6:in `index'
+Completed 200 OK in 21ms (Views: 18.5ms | ActiveRecord: 1.5ms | Allocations: 11874)
+
+
+Started GET "/users/1/sleep_records" for ::1 at 2023-02-26 13:30:33 -0800
+Processing by SleepRecordsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mSleepRecord Load (0.1ms)[0m  [1m[34mSELECT "sleep_records".* FROM "sleep_records" WHERE "sleep_records"."user_id" = ? ORDER BY "sleep_records"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:6:in `index'
+Completed 200 OK in 4ms (Views: 1.9ms | ActiveRecord: 0.3ms | Allocations: 3388)
+
+
+Started GET "/users" for ::1 at 2023-02-26 13:32:04 -0800
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  Rendered users/index.html.erb within layouts/application (Duration: 0.0ms | Allocations: 10)
+  Rendered layout layouts/application.html.erb (Duration: 8.8ms | Allocations: 13142)
+Completed 200 OK in 10ms (Views: 9.4ms | Allocations: 13646)
+
+
+Started GET "/users/1" for ::1 at 2023-02-26 13:32:10 -0800
+  
+AbstractController::ActionNotFound (The action 'show' could not be found for UsersController):
+  
+actionpack (7.0.4.2) lib/abstract_controller/base.rb:146:in `process'
+actionview (7.0.4.2) lib/action_view/rendering.rb:39:in `process'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:188:in `dispatch'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:251:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.6.2) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.6.2) lib/rack/etag.rb:27:in `call'
+rack (2.2.6.2) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.6.2) lib/rack/head.rb:12:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/content_security_policy.rb:36:in `call'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+activerecord (7.0.4.2) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.4.2) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.6.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.6.2) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.4.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.6.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.4.2) lib/rails/engine.rb:530:in `call'
+puma (5.6.5) lib/puma/configuration.rb:252:in `call'
+puma (5.6.5) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.5) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.5) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.5) lib/puma/server.rb:443:in `process_client'
+puma (5.6.5) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/users" for ::1 at 2023-02-26 13:32:23 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:4:in `index'
+Completed 200 OK in 5ms (Views: 3.6ms | ActiveRecord: 0.7ms | Allocations: 3498)
+
+
+Started GET "/users/1/sleep_records" for ::1 at 2023-02-26 13:32:26 -0800
+Processing by SleepRecordsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mSleepRecord Load (0.1ms)[0m  [1m[34mSELECT "sleep_records".* FROM "sleep_records" WHERE "sleep_records"."user_id" = ? ORDER BY "sleep_records"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:4:in `index'
+Completed 200 OK in 6ms (Views: 2.6ms | ActiveRecord: 0.6ms | Allocations: 3392)
+
+
+Started GET "/users/1" for ::1 at 2023-02-26 13:33:05 -0800
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `show'
+Completed 200 OK in 5ms (Views: 0.3ms | ActiveRecord: 0.7ms | Allocations: 3605)
+
+
+Started GET "/users" for ::1 at 2023-02-26 14:38:01 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:4:in `index'
+Completed 200 OK in 4ms (Views: 2.4ms | ActiveRecord: 0.3ms | Allocations: 2523)
+
+
+Started GET "/" for ::1 at 2023-02-26 14:38:05 -0800
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/simon/.rbenv/versions/3.2.1/lib/ruby/gems/3.2.0/gems/railties-7.0.4.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/simon/.rbenv/versions/3.2.1/lib/ruby/gems/3.2.0/gems/railties-7.0.4.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.8ms | Allocations: 261)
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.0ms | Allocations: 741)
+
+
+Started GET "/poop" for ::1 at 2023-02-26 14:38:08 -0800
+  
+ActionController::RoutingError (No route matches [GET] "/poop"):
+  
+Started GET "/poop" for ::1 at 2023-02-26 14:38:54 -0800
+  
+ActionController::RoutingError (No route matches [GET] "/poop"):
+  
+Started POST "/users/2/followers" for ::1 at 2023-02-26 15:03:19 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [POST] "/users/2/followers"):
+  
+Started POST "/users/1/followers" for ::1 at 2023-02-26 15:03:35 -0800
+  
+ActionController::RoutingError (No route matches [POST] "/users/1/followers"):
+  
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:04:05 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>1, "user_id"=>"1", "user_follow"=>{"follower_id"=>1}}
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Entity in 0ms (ActiveRecord: 0.3ms | Allocations: 564)
+
+
+  
+ActionController::InvalidAuthenticityToken (Can't verify CSRF token authenticity.):
+  
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:251:in `handle_unverified_request'
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:284:in `handle_unverified_request'
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:273:in `verify_authenticity_token'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:400:in `block in make_lambda'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:199:in `block (2 levels) in halting'
+actionpack (7.0.4.2) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:200:in `block in halting'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `block in invoke_before'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `each'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `invoke_before'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:116:in `block in run_callbacks'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:138:in `run_callbacks'
+actionpack (7.0.4.2) lib/abstract_controller/callbacks.rb:233:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/instrumentation.rb:67:in `block in process_action'
+activesupport (7.0.4.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.0.4.2) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (7.0.4.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.0.4.2) lib/action_controller/metal/instrumentation.rb:66:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (7.0.4.2) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (7.0.4.2) lib/abstract_controller/base.rb:151:in `process'
+actionview (7.0.4.2) lib/action_view/rendering.rb:39:in `process'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:188:in `dispatch'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:251:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.6.2) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.6.2) lib/rack/etag.rb:27:in `call'
+rack (2.2.6.2) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.6.2) lib/rack/head.rb:12:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/content_security_policy.rb:36:in `call'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+activerecord (7.0.4.2) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.4.2) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.6.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.6.2) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.4.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.6.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.4.2) lib/rails/engine.rb:530:in `call'
+puma (5.6.5) lib/puma/configuration.rb:252:in `call'
+puma (5.6.5) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.5) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.5) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.5) lib/puma/server.rb:443:in `process_client'
+puma (5.6.5) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:04:39 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Entity in 0ms (ActiveRecord: 0.0ms | Allocations: 443)
+
+
+  
+ActionController::InvalidAuthenticityToken (Can't verify CSRF token authenticity.):
+  
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:251:in `handle_unverified_request'
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:284:in `handle_unverified_request'
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:273:in `verify_authenticity_token'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:400:in `block in make_lambda'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:199:in `block (2 levels) in halting'
+actionpack (7.0.4.2) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:200:in `block in halting'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `block in invoke_before'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `each'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `invoke_before'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:116:in `block in run_callbacks'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:138:in `run_callbacks'
+actionpack (7.0.4.2) lib/abstract_controller/callbacks.rb:233:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/instrumentation.rb:67:in `block in process_action'
+activesupport (7.0.4.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.0.4.2) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (7.0.4.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.0.4.2) lib/action_controller/metal/instrumentation.rb:66:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (7.0.4.2) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (7.0.4.2) lib/abstract_controller/base.rb:151:in `process'
+actionview (7.0.4.2) lib/action_view/rendering.rb:39:in `process'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:188:in `dispatch'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:251:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.6.2) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.6.2) lib/rack/etag.rb:27:in `call'
+rack (2.2.6.2) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.6.2) lib/rack/head.rb:12:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/content_security_policy.rb:36:in `call'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+activerecord (7.0.4.2) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.4.2) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.6.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.6.2) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.4.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.6.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.4.2) lib/rails/engine.rb:530:in `call'
+puma (5.6.5) lib/puma/configuration.rb:252:in `call'
+puma (5.6.5) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.5) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.5) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.5) lib/puma/server.rb:443:in `process_client'
+puma (5.6.5) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:06:07 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Entity in 0ms (ActiveRecord: 0.6ms | Allocations: 432)
+
+
+  
+ActionController::InvalidAuthenticityToken (Can't verify CSRF token authenticity.):
+  
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:251:in `handle_unverified_request'
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:284:in `handle_unverified_request'
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:273:in `verify_authenticity_token'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:400:in `block in make_lambda'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:199:in `block (2 levels) in halting'
+actionpack (7.0.4.2) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:200:in `block in halting'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `block in invoke_before'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `each'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `invoke_before'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:116:in `block in run_callbacks'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:138:in `run_callbacks'
+actionpack (7.0.4.2) lib/abstract_controller/callbacks.rb:233:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/instrumentation.rb:67:in `block in process_action'
+activesupport (7.0.4.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.0.4.2) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (7.0.4.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.0.4.2) lib/action_controller/metal/instrumentation.rb:66:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (7.0.4.2) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (7.0.4.2) lib/abstract_controller/base.rb:151:in `process'
+actionview (7.0.4.2) lib/action_view/rendering.rb:39:in `process'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:188:in `dispatch'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:251:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.6.2) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.6.2) lib/rack/etag.rb:27:in `call'
+rack (2.2.6.2) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.6.2) lib/rack/head.rb:12:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/content_security_policy.rb:36:in `call'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+activerecord (7.0.4.2) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.4.2) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.6.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.6.2) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.4.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.6.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.4.2) lib/rails/engine.rb:530:in `call'
+puma (5.6.5) lib/puma/configuration.rb:252:in `call'
+puma (5.6.5) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.5) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.5) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.5) lib/puma/server.rb:443:in `process_client'
+puma (5.6.5) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:06:19 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Entity in 0ms (ActiveRecord: 0.3ms | Allocations: 635)
+
+
+  
+ActionController::InvalidAuthenticityToken (Can't verify CSRF token authenticity.):
+  
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:251:in `handle_unverified_request'
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:284:in `handle_unverified_request'
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:273:in `verify_authenticity_token'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:400:in `block in make_lambda'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:199:in `block (2 levels) in halting'
+actionpack (7.0.4.2) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:200:in `block in halting'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `block in invoke_before'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `each'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `invoke_before'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:116:in `block in run_callbacks'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:138:in `run_callbacks'
+actionpack (7.0.4.2) lib/abstract_controller/callbacks.rb:233:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/instrumentation.rb:67:in `block in process_action'
+activesupport (7.0.4.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.0.4.2) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (7.0.4.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.0.4.2) lib/action_controller/metal/instrumentation.rb:66:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (7.0.4.2) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (7.0.4.2) lib/abstract_controller/base.rb:151:in `process'
+actionview (7.0.4.2) lib/action_view/rendering.rb:39:in `process'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:188:in `dispatch'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:251:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.6.2) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.6.2) lib/rack/etag.rb:27:in `call'
+rack (2.2.6.2) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.6.2) lib/rack/head.rb:12:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/content_security_policy.rb:36:in `call'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+activerecord (7.0.4.2) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.4.2) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.6.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.6.2) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.4.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.6.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.4.2) lib/rails/engine.rb:530:in `call'
+puma (5.6.5) lib/puma/configuration.rb:252:in `call'
+puma (5.6.5) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.5) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.5) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.5) lib/puma/server.rb:443:in `process_client'
+puma (5.6.5) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:06:41 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:8:in `create'
+Completed 404 Not Found in 11ms (ActiveRecord: 1.1ms | Allocations: 7302)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=2):
+  
+app/controllers/user_follows_controller.rb:8:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Jakarta"], ["created_at", "2023-02-26 23:07:10.716702"], ["updated_at", "2023-02-26 23:07:10.716702"]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[36mcommit transaction[0m
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:07:13 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:8:in `create'
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 0.3ms | Allocations: 12383)
+
+
+  
+NameError (Rails couldn't find a valid model for Followee association. Please provide the :class_name option on the association declaration. If :class_name is already provided, make sure it's an ActiveRecord::Base subclass.):
+  
+app/controllers/user_follows_controller.rb:10:in `create'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:08:34 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:8:in `create'
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.9ms | Allocations: 8049)
+
+
+  
+NameError (Rails couldn't find a valid model for Follower association. Please provide the :class_name option on the association declaration. If :class_name is already provided, make sure it's an ActiveRecord::Base subclass.):
+  
+app/controllers/user_follows_controller.rb:12:in `create'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:09:52 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:8:in `create'
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 1.0ms | Allocations: 7110)
+
+
+  
+NameError (Rails couldn't find a valid model for Followee association. Please provide the :class_name option on the association declaration. If :class_name is already provided, make sure it's an ActiveRecord::Base subclass.):
+  
+app/controllers/user_follows_controller.rb:10:in `create'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:11:22 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:9:in `create'
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 1.1ms | Allocations: 7120)
+
+
+  
+NameError (Rails couldn't find a valid model for Followee association. Please provide the :class_name option on the association declaration. If :class_name is already provided, make sure it's an ActiveRecord::Base subclass.):
+  
+app/controllers/user_follows_controller.rb:12:in `create'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:17:21 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:9:in `create'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+  [1m[36mUserFollow Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "user_follows" WHERE "user_follows"."follower_id" = ? AND "user_follows"."followee_id" = ? LIMIT ?[0m  [["follower_id", 2], ["followee_id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+  [1m[36mUserFollow Create (0.4ms)[0m  [1m[32mINSERT INTO "user_follows" ("follower_id", "followee_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["follower_id", 2], ["followee_id", 1], ["created_at", "2023-02-26 23:17:22.030789"], ["updated_at", "2023-02-26 23:17:22.030789"]]
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+Completed 500 Internal Server Error in 16ms (ActiveRecord: 1.5ms | Allocations: 13399)
+
+
+  
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: main.followees):
+  
+app/controllers/user_follows_controller.rb:14:in `create'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:18:12 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:9:in `create'
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 1.1ms | Allocations: 7925)
+
+
+  
+NameError (Rails couldn't find a valid model for Follower association. Please provide the :class_name option on the association declaration. If :class_name is already provided, make sure it's an ActiveRecord::Base subclass.):
+  
+app/controllers/user_follows_controller.rb:14:in `create'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:19:01 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:9:in `create'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+  [1m[36mUserFollow Create (0.4ms)[0m  [1m[32mINSERT INTO "user_follows" ("follower_id", "followee_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["follower_id", 2], ["followee_id", 1], ["created_at", "2023-02-26 23:19:01.273102"], ["updated_at", "2023-02-26 23:19:01.273102"]]
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 1.7ms | Allocations: 11006)
+
+
+  
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: main.followees):
+  
+app/controllers/user_follows_controller.rb:14:in `create'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:19:42 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:9:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+  [1m[36mUserFollow Create (3.5ms)[0m  [1m[32mINSERT INTO "user_follows" ("follower_id", "followee_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["follower_id", 2], ["followee_id", 1], ["created_at", "2023-02-26 23:19:42.739834"], ["updated_at", "2023-02-26 23:19:42.739834"]]
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 4.8ms | Allocations: 7182)
+
+
+  
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: main.followees):
+  
+app/controllers/user_follows_controller.rb:14:in `create'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:19:46 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:9:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+  [1m[36mUserFollow Create (0.4ms)[0m  [1m[32mINSERT INTO "user_follows" ("follower_id", "followee_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["follower_id", 2], ["followee_id", 1], ["created_at", "2023-02-26 23:19:46.594994"], ["updated_at", "2023-02-26 23:19:46.594994"]]
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:14:in `create'
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.6ms | Allocations: 3811)
+
+
+  
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: main.followees):
+  
+app/controllers/user_follows_controller.rb:14:in `create'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:20:17 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:9:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:15:in `create'
+  [1m[36mUserFollow Create (0.9ms)[0m  [1m[32mINSERT INTO "user_follows" ("follower_id", "followee_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["follower_id", 2], ["followee_id", 1], ["created_at", "2023-02-26 23:20:17.591256"], ["updated_at", "2023-02-26 23:20:17.591256"]]
+  ↳ app/controllers/user_follows_controller.rb:15:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:15:in `create'
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 2.0ms | Allocations: 7168)
+
+
+  
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: main.followees):
+  
+app/controllers/user_follows_controller.rb:15:in `create'
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUserFollow Create (0.7ms)[0m  [1m[32mINSERT INTO "user_follows" ("follower_id", "followee_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["follower_id", 1], ["followee_id", 2], ["created_at", "2023-02-26 23:24:15.883586"], ["updated_at", "2023-02-26 23:24:15.883586"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "sleep_records"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "sleep_records" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "sleep_time" datetime(6), "wake_time" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_sleep_records_on_user_id" ON "sleep_records" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_follows"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "user_follows" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "follower_id" integer NOT NULL, "followee_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_user_follows_on_followee_id" ON "user_follows" ("followee_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_user_follows_on_follower_id" ON "user_follows" ("follower_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "asleep_records" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "sleep_time" datetime(6) DEFAULT NULL, "wake_time" datetime(6) DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_asleep_records_on_user_id" ON "asleep_records" ("user_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "asleep_records" ("id","user_id","sleep_time","wake_time","created_at","updated_at")
+                     SELECT "id","user_id","sleep_time","wake_time","created_at","updated_at" FROM "sleep_records"[0m
+  [1m[35m (1.8ms)[0m  [1m[35mDROP TABLE "sleep_records"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "sleep_records" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "sleep_time" datetime(6) DEFAULT NULL, "wake_time" datetime(6) DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_0f78b0de7b"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_sleep_records_on_user_id" ON "sleep_records" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "sleep_records" ("id","user_id","sleep_time","wake_time","created_at","updated_at")
+                     SELECT "id","user_id","sleep_time","wake_time","created_at","updated_at" FROM "asleep_records"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "asleep_records"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "auser_follows" ("id" integer NOT NULL PRIMARY KEY, "follower_id" integer NOT NULL, "followee_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_auser_follows_on_follower_id" ON "auser_follows" ("follower_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_auser_follows_on_followee_id" ON "auser_follows" ("followee_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "auser_follows" ("id","follower_id","followee_id","created_at","updated_at")
+                     SELECT "id","follower_id","followee_id","created_at","updated_at" FROM "user_follows"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "user_follows"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "user_follows" ("id" integer NOT NULL PRIMARY KEY, "follower_id" integer NOT NULL, "followee_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ee86781160"
+FOREIGN KEY ("followee_id")
+  REFERENCES "followees" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_user_follows_on_followee_id" ON "user_follows" ("followee_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_user_follows_on_follower_id" ON "user_follows" ("follower_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "user_follows" ("id","follower_id","followee_id","created_at","updated_at")
+                     SELECT "id","follower_id","followee_id","created_at","updated_at" FROM "auser_follows"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "sleep_records"[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "sleep_records" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "sleep_time" datetime(6), "wake_time" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE INDEX "index_sleep_records_on_user_id" ON "sleep_records" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_follows"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "user_follows" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "follower_id" integer NOT NULL, "followee_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20230226201145)[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20230226201143),
+(20230226201144);
+
+[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-02-26 23:25:46.146847"], ["updated_at", "2023-02-26 23:25:46.146847"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "b76a526dfe25f87d0af6d4306a098455de745733"], ["created_at", "2023-02-26 23:25:46.153222"], ["updated_at", "2023-02-26 23:25:46.153222"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "sleep_records"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "sleep_records" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "sleep_time" datetime(6), "wake_time" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_sleep_records_on_user_id" ON "sleep_records" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_follows"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "user_follows" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "follower_id" integer NOT NULL, "followee_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20230226201145)[0m
+  [1m[35m (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20230226201143),
+(20230226201144);
+
+[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-02-26 23:25:46.174792"], ["updated_at", "2023-02-26 23:25:46.174792"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.3ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = ?, "updated_at" = ? WHERE "ar_internal_metadata"."key" = ?[0m  [["value", "test"], ["updated_at", "2023-02-26 23:25:46.207019"], ["key", "environment"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "b76a526dfe25f87d0af6d4306a098455de745733"], ["created_at", "2023-02-26 23:25:46.211657"], ["updated_at", "2023-02-26 23:25:46.211657"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:26:43 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+Completed 404 Not Found in 7ms (ActiveRecord: 0.7ms | Allocations: 4527)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=1):
+  
+app/controllers/user_follows_controller.rb:6:in `create'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:27:02 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.1ms | Allocations: 933)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=1):
+  
+app/controllers/user_follows_controller.rb:6:in `create'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:27:05 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.1ms | Allocations: 928)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=1):
+  
+app/controllers/user_follows_controller.rb:6:in `create'
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:27:09 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.1ms | Allocations: 928)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=1):
+  
+app/controllers/user_follows_controller.rb:6:in `create'
+Started POST "/users" for ::1 at 2023-02-26 15:27:34 -0800
+  
+ActionController::RoutingError (No route matches [POST] "/users"):
+  
+Started POST "/users" for ::1 at 2023-02-26 15:28:43 -0800
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Bob", "user"=>{"name"=>"Bob"}}
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Entity in 0ms (ActiveRecord: 0.4ms | Allocations: 511)
+
+
+  
+ActionController::InvalidAuthenticityToken (Can't verify CSRF token authenticity.):
+  
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:251:in `handle_unverified_request'
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:284:in `handle_unverified_request'
+actionpack (7.0.4.2) lib/action_controller/metal/request_forgery_protection.rb:273:in `verify_authenticity_token'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:400:in `block in make_lambda'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:199:in `block (2 levels) in halting'
+actionpack (7.0.4.2) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:200:in `block in halting'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `block in invoke_before'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `each'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:595:in `invoke_before'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:116:in `block in run_callbacks'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:138:in `run_callbacks'
+actionpack (7.0.4.2) lib/abstract_controller/callbacks.rb:233:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/instrumentation.rb:67:in `block in process_action'
+activesupport (7.0.4.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.0.4.2) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (7.0.4.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.0.4.2) lib/action_controller/metal/instrumentation.rb:66:in `process_action'
+actionpack (7.0.4.2) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (7.0.4.2) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (7.0.4.2) lib/abstract_controller/base.rb:151:in `process'
+actionview (7.0.4.2) lib/action_view/rendering.rb:39:in `process'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:188:in `dispatch'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:251:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.6.2) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.6.2) lib/rack/etag.rb:27:in `call'
+rack (2.2.6.2) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.6.2) lib/rack/head.rb:12:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/content_security_policy.rb:36:in `call'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+activerecord (7.0.4.2) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.4.2) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.6.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.6.2) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.4.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.6.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.4.2) lib/rails/engine.rb:530:in `call'
+puma (5.6.5) lib/puma/configuration.rb:252:in `call'
+puma (5.6.5) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.5) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.5) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.5) lib/puma/server.rb:443:in `process_client'
+puma (5.6.5) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started POST "/users" for ::1 at 2023-02-26 15:28:58 -0800
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Bob", "user"=>{"name"=>"Bob"}}
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.5ms | Allocations: 516)
+
+
+  
+NoMethodError (undefined method `permit' for "Bob":String):
+  
+app/controllers/users_controller.rb:15:in `create'
+Started POST "/users" for ::1 at 2023-02-26 15:29:18 -0800
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Bob", "user"=>{"name"=>"Bob"}}
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.5ms | Allocations: 3436)
+
+
+  
+ArgumentError (When assigning attributes, you must pass a hash as an argument, String passed.):
+  
+app/controllers/users_controller.rb:15:in `create'
+Started POST "/users" for ::1 at 2023-02-26 15:31:11 -0800
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Bob", "user"=>{"name"=>"Bob"}}
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.5ms | Allocations: 1492)
+
+
+  
+ArgumentError (When assigning attributes, you must pass a hash as an argument, String passed.):
+  
+app/controllers/users_controller.rb:15:in `create'
+Started POST "/users" for ::1 at 2023-02-26 15:31:57 -0800
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Bob", "user"=>{"name"=>"Bob"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:16:in `create'
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Bob"], ["created_at", "2023-02-26 23:31:57.685313"], ["updated_at", "2023-02-26 23:31:57.685313"]]
+  ↳ app/controllers/users_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/users_controller.rb:16:in `create'
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 1.5ms | Allocations: 4228)
+
+
+Started POST "/users" for ::1 at 2023-02-26 15:32:06 -0800
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Bob2", "user"=>{"name"=>"Bob2"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:16:in `create'
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Bob2"], ["created_at", "2023-02-26 23:32:06.330790"], ["updated_at", "2023-02-26 23:32:06.330790"]]
+  ↳ app/controllers/users_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/users_controller.rb:16:in `create'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.4ms | Allocations: 1938)
+
+
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:32:14 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>2, "user_id"=>"1", "user_follow"=>{"follower_id"=>2}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:9:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:15:in `create'
+  [1m[36mUserFollow Create (0.3ms)[0m  [1m[32mINSERT INTO "user_follows" ("follower_id", "followee_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["follower_id", 2], ["followee_id", 1], ["created_at", "2023-02-26 23:32:14.669984"], ["updated_at", "2023-02-26 23:32:14.669984"]]
+  ↳ app/controllers/user_follows_controller.rb:15:in `create'
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:15:in `create'
+Completed 200 OK in 9ms (Views: 0.3ms | ActiveRecord: 2.2ms | Allocations: 5797)
+
+
+Started POST "/users/1/sleep_records" for ::1 at 2023-02-26 15:35:25 -0800
+  
+SyntaxError (/Users/simon/Rails/goodnight/app/controllers/sleep_records_controller.rb:25: syntax error, unexpected ']', expecting ')'
+...(wake_time: params[:wake_time]])
+...                              ^
+):
+  
+app/controllers/sleep_records_controller.rb:25: syntax error, unexpected ']', expecting ')'
+app/controllers/sleep_records_controller.rb:25: syntax error, unexpected ']', expecting ')'
+app/controllers/sleep_records_controller.rb:25: syntax error, unexpected ']', expecting ')'
+Started POST "/users/1/sleep_records" for ::1 at 2023-02-26 15:35:47 -0800
+Processing by SleepRecordsController#create as */*
+  Parameters: {"sleep_time"=>"2023-02-23 23:00:00", "user_id"=>"1", "sleep_record"=>{"sleep_time"=>"2023-02-23 23:00:00"}}
+Completed 422 Unprocessable Entity in 18ms (Views: 10.5ms | ActiveRecord: 1.0ms | Allocations: 7115)
+
+
+Started POST "/users/1/sleep_records" for ::1 at 2023-02-26 15:36:33 -0800
+Error occurred while parsing request parameters.
+Contents:
+
+{"sleep_time": 2023-02-23 23:00:00}
+Processing by SleepRecordsController#create as */*
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms | Allocations: 709)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters):
+  
+app/controllers/sleep_records_controller.rb:10:in `create'
+Started POST "/users/1/sleep_records" for ::1 at 2023-02-26 15:36:38 -0800
+Processing by SleepRecordsController#create as */*
+  Parameters: {"sleep_time"=>"2023-02-23 23:00:00", "user_id"=>"1", "sleep_record"=>{"sleep_time"=>"2023-02-23 23:00:00"}}
+Completed 422 Unprocessable Entity in 2ms (Views: 0.6ms | ActiveRecord: 0.0ms | Allocations: 932)
+
+
+Started POST "/users/1/sleep_records" for ::1 at 2023-02-26 15:37:41 -0800
+Processing by SleepRecordsController#create as */*
+  Parameters: {"sleep_time"=>"2023-02-23T23:00:00", "user_id"=>"1", "sleep_record"=>{"sleep_time"=>"2023-02-23T23:00:00"}}
+Completed 422 Unprocessable Entity in 2ms (Views: 0.4ms | ActiveRecord: 0.0ms | Allocations: 946)
+
+
+Started POST "/users/1/sleep_records" for ::1 at 2023-02-26 15:38:40 -0800
+Processing by SleepRecordsController#create as */*
+  Parameters: {"sleep_time"=>"2023-02-23T23:00:00Z", "user_id"=>"1", "sleep_record"=>{"sleep_time"=>"2023-02-23T23:00:00Z"}}
+Completed 422 Unprocessable Entity in 3ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 932)
+
+
+Started POST "/users/1/sleep_records" for ::1 at 2023-02-26 15:38:59 -0800
+Processing by SleepRecordsController#create as */*
+  Parameters: {"sleep_time"=>"2023-02-22T23:00:00Z", "user_id"=>"1", "sleep_record"=>{"sleep_time"=>"2023-02-22T23:00:00Z"}}
+Completed 422 Unprocessable Entity in 2ms (Views: 1.2ms | ActiveRecord: 0.0ms | Allocations: 930)
+
+
+Started POST "/users/1/sleep_records" for ::1 at 2023-02-26 15:39:17 -0800
+Processing by SleepRecordsController#create as */*
+  Parameters: {"sleep_time"=>"2023-02-22T23:00:00Z", "user_id"=>"1", "sleep_record"=>{"sleep_time"=>"2023-02-22T23:00:00Z"}}
+Completed 422 Unprocessable Entity in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms | Allocations: 930)
+
+
+Started GET "/users" for ::1 at 2023-02-26 15:39:45 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:6:in `index'
+Completed 200 OK in 4ms (Views: 2.6ms | ActiveRecord: 0.5ms | Allocations: 2500)
+
+
+Started POST "/users/1/sleep_records" for ::1 at 2023-02-26 15:40:05 -0800
+Processing by SleepRecordsController#create as */*
+  Parameters: {"sleep_time"=>"2023-02-22T23:00:00Z", "user_id"=>"1", "sleep_record"=>{"sleep_time"=>"2023-02-22T23:00:00Z"}}
+Completed 422 Unprocessable Entity in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms | Allocations: 930)
+
+
+Started POST "/users/1/sleep_records" for ::1 at 2023-02-26 15:41:20 -0800
+Processing by SleepRecordsController#create as */*
+  Parameters: {"sleep_time"=>"2023-02-22T23:00:00Z", "user_id"=>"1", "sleep_record"=>{"sleep_time"=>"2023-02-22T23:00:00Z"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:10:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/sleep_records_controller.rb:13:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:13:in `create'
+  [1m[36mSleepRecord Create (0.9ms)[0m  [1m[32mINSERT INTO "sleep_records" ("user_id", "sleep_time", "wake_time", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 1], ["sleep_time", "2023-02-22 23:00:00"], ["wake_time", nil], ["created_at", "2023-02-26 23:41:20.723694"], ["updated_at", "2023-02-26 23:41:20.723694"]]
+  ↳ app/controllers/sleep_records_controller.rb:13:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/sleep_records_controller.rb:13:in `create'
+Completed 200 OK in 12ms (Views: 0.2ms | ActiveRecord: 2.5ms | Allocations: 9312)
+
+
+Started POST "/users/2/sleep_records" for ::1 at 2023-02-26 15:41:40 -0800
+Processing by SleepRecordsController#create as */*
+  Parameters: {"sleep_time"=>"2023-02-22T23:00:00Z", "user_id"=>"2", "sleep_record"=>{"sleep_time"=>"2023-02-22T23:00:00Z"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:10:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/sleep_records_controller.rb:13:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:13:in `create'
+  [1m[36mSleepRecord Create (0.3ms)[0m  [1m[32mINSERT INTO "sleep_records" ("user_id", "sleep_time", "wake_time", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 2], ["sleep_time", "2023-02-22 23:00:00"], ["wake_time", nil], ["created_at", "2023-02-26 23:41:40.901090"], ["updated_at", "2023-02-26 23:41:40.901090"]]
+  ↳ app/controllers/sleep_records_controller.rb:13:in `create'
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/sleep_records_controller.rb:13:in `create'
+Completed 200 OK in 6ms (Views: 0.2ms | ActiveRecord: 1.6ms | Allocations: 3522)
+
+
+Started GET "/users/1/sleep_records" for ::1 at 2023-02-26 15:42:41 -0800
+Processing by SleepRecordsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mSleepRecord Load (0.4ms)[0m  [1m[34mSELECT "sleep_records".* FROM "sleep_records" WHERE "sleep_records"."user_id" = ? ORDER BY "sleep_records"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:6:in `index'
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.4ms | Allocations: 1127)
+
+
+Started GET "/users/1/user_followers_sleep_records" for ::1 at 2023-02-26 15:42:48 -0800
+  
+ActionController::RoutingError (No route matches [GET] "/users/1/user_followers_sleep_records"):
+  
+Started GET "/rails/info/routes?path=user_followers_sleep_records" for ::1 at 2023-02-26 15:42:50 -0800
+Processing by Rails::InfoController#routes as */*
+  Parameters: {"path"=>"user_followers_sleep_records"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 2103)
+
+
+Started GET "/users/1/user_followers_sleep_records" for ::1 at 2023-02-26 15:45:13 -0800
+  
+ActionController::RoutingError (No route matches [GET] "/users/1/user_followers_sleep_records"):
+  
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 15:45:27 -0800
+  
+AbstractController::ActionNotFound (The action 'user_followers_sleep_records' could not be found for UserFollowsController):
+  
+actionpack (7.0.4.2) lib/abstract_controller/base.rb:146:in `process'
+actionview (7.0.4.2) lib/action_view/rendering.rb:39:in `process'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:188:in `dispatch'
+actionpack (7.0.4.2) lib/action_controller/metal.rb:251:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.4.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.4.2) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.6.2) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.6.2) lib/rack/etag.rb:27:in `call'
+rack (2.2.6.2) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.6.2) lib/rack/head.rb:12:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/http/content_security_policy.rb:36:in `call'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.6.2) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+activerecord (7.0.4.2) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.4.2) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.4.2) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.4.2) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.4.2) lib/rails/rack/logger.rb:25:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.6.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.6.2) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.4.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.6.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.4.2) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.4.2) lib/rails/engine.rb:530:in `call'
+puma (5.6.5) lib/puma/configuration.rb:252:in `call'
+puma (5.6.5) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.5) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.5) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.5) lib/puma/server.rb:443:in `process_client'
+puma (5.6.5) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 15:46:26 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:35:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:40:in `map'
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 1.2ms | Allocations: 6152)
+
+
+  
+ArgumentError (wrong number of arguments (given 2, expected 1)):
+  
+app/controllers/user_follows_controller.rb:40:in `followers_sleep_records'
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 15:47:38 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:35:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:40:in `map'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 1.0ms | Allocations: 5852)
+
+
+Started POST "/users" for ::1 at 2023-02-26 15:48:42 -0800
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Bob3", "user"=>{"name"=>"Bob3"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:16:in `create'
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Bob3"], ["created_at", "2023-02-26 23:48:42.502648"], ["updated_at", "2023-02-26 23:48:42.502648"]]
+  ↳ app/controllers/users_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/users_controller.rb:16:in `create'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.4ms | Allocations: 3098)
+
+
+Started POST "/users/1/user_follows" for ::1 at 2023-02-26 15:49:03 -0800
+Processing by UserFollowsController#create as */*
+  Parameters: {"follower_id"=>3, "user_id"=>"1", "user_follow"=>{"follower_id"=>3}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:9:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:15:in `create'
+  [1m[36mUserFollow Create (0.3ms)[0m  [1m[32mINSERT INTO "user_follows" ("follower_id", "followee_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["follower_id", 3], ["followee_id", 1], ["created_at", "2023-02-26 23:49:03.966831"], ["updated_at", "2023-02-26 23:49:03.966831"]]
+  ↳ app/controllers/user_follows_controller.rb:15:in `create'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/user_follows_controller.rb:15:in `create'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 1.7ms | Allocations: 4917)
+
+
+Started POST "/users/3/sleep_records" for ::1 at 2023-02-26 15:49:13 -0800
+Processing by SleepRecordsController#create as */*
+  Parameters: {"sleep_time"=>"2023-02-22T23:00:00Z", "user_id"=>"3", "sleep_record"=>{"sleep_time"=>"2023-02-22T23:00:00Z"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:10:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/sleep_records_controller.rb:13:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:13:in `create'
+  [1m[36mSleepRecord Create (0.3ms)[0m  [1m[32mINSERT INTO "sleep_records" ("user_id", "sleep_time", "wake_time", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 3], ["sleep_time", "2023-02-22 23:00:00"], ["wake_time", nil], ["created_at", "2023-02-26 23:49:13.637753"], ["updated_at", "2023-02-26 23:49:13.637753"]]
+  ↳ app/controllers/sleep_records_controller.rb:13:in `create'
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/sleep_records_controller.rb:13:in `create'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 1.7ms | Allocations: 6389)
+
+
+Started GET "/users/1/user_follows" for ::1 at 2023-02-26 15:49:20 -0800
+  
+ActionController::RoutingError (No route matches [GET] "/users/1/user_follows"):
+  
+Started GET "/users/1/user_follows" for ::1 at 2023-02-26 15:50:41 -0800
+  
+ActionController::RoutingError (No route matches [GET] "/users/1/user_follows"):
+  
+Started GET "/users/1/user_follows" for ::1 at 2023-02-26 15:51:06 -0800
+  
+SyntaxError (/Users/simon/Rails/goodnight/app/controllers/user_follows_controller.rb:55: syntax error, unexpected end-of-input):
+  
+app/controllers/user_follows_controller.rb:55: syntax error, unexpected end-of-input
+app/controllers/user_follows_controller.rb:55: syntax error, unexpected end-of-input
+app/controllers/user_follows_controller.rb:55: syntax error, unexpected end-of-input
+Started GET "/users/1/user_follows" for ::1 at 2023-02-26 15:51:23 -0800
+Processing by UserFollowsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `index'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 0.8ms | ActiveRecord: 1.0ms | Allocations: 4567)
+
+
+Started GET "/users/2/user_follows" for ::1 at 2023-02-26 15:51:29 -0800
+Processing by UserFollowsController#index as HTML
+  Parameters: {"user_id"=>"2"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `index'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."follower_id" = ?[0m  [["follower_id", 2]]
+  ↳ app/controllers/user_follows_controller.rb:10:in `index'
+Completed 200 OK in 4ms (Views: 2.5ms | ActiveRecord: 0.4ms | Allocations: 2519)
+
+
+Started GET "/users/3/user_follows" for ::1 at 2023-02-26 15:51:35 -0800
+Processing by UserFollowsController#index as HTML
+  Parameters: {"user_id"=>"3"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `index'
+  [1m[36mUserFollow Load (0.2ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."follower_id" = ?[0m  [["follower_id", 3]]
+  ↳ app/controllers/user_follows_controller.rb:10:in `index'
+Completed 200 OK in 3ms (Views: 1.3ms | ActiveRecord: 0.3ms | Allocations: 1344)
+
+
+Started GET "/users/1/user_follows" for ::1 at 2023-02-26 15:51:42 -0800
+Processing by UserFollowsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `index'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:10:in `index'
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.2ms | Allocations: 1237)
+
+
+Started GET "/users/1/user_follows" for ::1 at 2023-02-26 15:52:09 -0800
+Processing by UserFollowsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:6:in `index'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 1.8ms | ActiveRecord: 0.9ms | Allocations: 5858)
+
+
+Started GET "/users/1/user_follows/followers_sleep_records" for ::1 at 2023-02-26 15:52:35 -0800
+  
+ActionController::RoutingError (No route matches [GET] "/users/1/user_follows/followers_sleep_records"):
+  
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 15:52:46 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.2ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 1.5ms | Allocations: 6044)
+
+
+  
+ArgumentError (wrong number of arguments (given 2, expected 1)):
+  
+app/controllers/user_follows_controller.rb:46:in `followers_sleep_records'
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 15:54:06 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 1.0ms | Allocations: 5894)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 15:54:41 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 1.1ms | Allocations: 5833)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 15:55:16 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.2ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 1.2ms | Allocations: 6427)
+
+
+  
+NoMethodError (undefined method `user' for #<UserFollow id: 1, follower_id: 2, followee_id: 1, created_at: "2023-02-26 23:32:14.669984000 +0000", updated_at: "2023-02-26 23:32:14.669984000 +0000">):
+  
+app/controllers/user_follows_controller.rb:46:in `map'
+app/controllers/user_follows_controller.rb:46:in `followers_sleep_records'
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 15:56:31 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 1.3ms | Allocations: 6458)
+
+
+  
+NoMethodError (undefined method `user' for #<UserFollow id: 1, follower_id: 2, followee_id: 1, created_at: "2023-02-26 23:32:14.669984000 +0000", updated_at: "2023-02-26 23:32:14.669984000 +0000">):
+  
+app/controllers/user_follows_controller.rb:46:in `map'
+app/controllers/user_follows_controller.rb:46:in `followers_sleep_records'
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 15:57:07 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 200 OK in 11ms (Views: 0.1ms | ActiveRecord: 1.3ms | Allocations: 7061)
+
+
+Started GET "/users/1/sleep_records" for ::1 at 2023-02-26 15:57:47 -0800
+Processing by SleepRecordsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mSleepRecord Load (0.2ms)[0m  [1m[34mSELECT "sleep_records".* FROM "sleep_records" WHERE "sleep_records"."user_id" = ? ORDER BY "sleep_records"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/sleep_records_controller.rb:6:in `index'
+Completed 200 OK in 5ms (Views: 2.9ms | ActiveRecord: 0.9ms | Allocations: 2462)
+
+
+Started GET "/users/2/sleep_records" for ::1 at 2023-02-26 15:57:50 -0800
+Processing by SleepRecordsController#index as HTML
+  Parameters: {"user_id"=>"2"}
+  [1m[36mSleepRecord Load (0.1ms)[0m  [1m[34mSELECT "sleep_records".* FROM "sleep_records" WHERE "sleep_records"."user_id" = ? ORDER BY "sleep_records"."created_at" DESC[0m  [["user_id", 2]]
+  ↳ app/controllers/sleep_records_controller.rb:6:in `index'
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.1ms | Allocations: 939)
+
+
+Started GET "/users/3/sleep_records" for ::1 at 2023-02-26 15:57:53 -0800
+Processing by SleepRecordsController#index as HTML
+  Parameters: {"user_id"=>"3"}
+  [1m[36mSleepRecord Load (0.1ms)[0m  [1m[34mSELECT "sleep_records".* FROM "sleep_records" WHERE "sleep_records"."user_id" = ? ORDER BY "sleep_records"."created_at" DESC[0m  [["user_id", 3]]
+  ↳ app/controllers/sleep_records_controller.rb:6:in `index'
+Completed 200 OK in 3ms (Views: 1.5ms | ActiveRecord: 0.1ms | Allocations: 939)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 15:58:33 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 1280)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 15:59:36 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.2ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 1.4ms | Allocations: 6999)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 15:59:37 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 1303)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 15:59:58 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 200 OK in 10ms (Views: 0.1ms | ActiveRecord: 1.3ms | Allocations: 7081)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 16:00:43 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:44:in `puts'
+Completed 200 OK in 11ms (Views: 0.1ms | ActiveRecord: 1.2ms | Allocations: 7008)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 16:01:22 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.2ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 200 OK in 12ms (Views: 0.3ms | ActiveRecord: 1.6ms | Allocations: 7263)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 16:01:54 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 200 OK in 30ms (Views: 1.5ms | ActiveRecord: 1.5ms | Allocations: 6611)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 16:02:07 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 1.1ms | Allocations: 6696)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 16:03:52 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 1.1ms | Allocations: 6570)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 16:03:59 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 1.2ms | Allocations: 6619)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 16:04:12 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:41:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `map'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 1.3ms | Allocations: 6544)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 16:05:33 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:38:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:43:in `map'
+Completed 200 OK in 10ms (Views: 0.3ms | ActiveRecord: 1.4ms | Allocations: 6843)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 16:08:34 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:38:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:43:in `map'
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 1.6ms | Allocations: 6796)
+
+
+  
+NameError (undefined local variable or method `week_ago' for #<UserFollowsController:0x000000000a1e50>):
+  
+app/controllers/user_follows_controller.rb:43:in `followers_sleep_records'
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 16:08:51 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:38:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:43:in `map'
+Completed 200 OK in 13ms (Views: 0.3ms | ActiveRecord: 1.2ms | Allocations: 6951)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 16:09:40 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:38:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:43:in `map'
+  [1m[36mSleepRecord Load (1.2ms)[0m  [1m[34mSELECT "sleep_records".* FROM "sleep_records" WHERE "sleep_records"."user_id" IN (?, ?)[0m  [["user_id", 2], ["user_id", 3]]
+  ↳ app/controllers/user_follows_controller.rb:44:in `followers_sleep_records'
+Completed 200 OK in 14ms (Views: 2.4ms | ActiveRecord: 2.9ms | Allocations: 8920)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 16:09:53 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:38:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:43:in `map'
+  [1m[36mSleepRecord Load (0.5ms)[0m  [1m[34mSELECT *, sleep_time - wake_time AS duration FROM "sleep_records" WHERE "sleep_records"."user_id" IN (?, ?) AND (created_at >= '2023-02-20 00:00:00') ORDER BY duration DESC[0m  [["user_id", 2], ["user_id", 3]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `followers_sleep_records'
+Completed 200 OK in 13ms (Views: 2.8ms | ActiveRecord: 2.4ms | Allocations: 9193)
+
+
+Started GET "/users/1/user_follows/sleep_records" for ::1 at 2023-02-26 16:10:10 -0800
+Processing by UserFollowsController#followers_sleep_records as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_follows_controller.rb:38:in `followers_sleep_records'
+  [1m[36mUserFollow Load (0.1ms)[0m  [1m[34mSELECT "user_follows".* FROM "user_follows" WHERE "user_follows"."followee_id" = ?[0m  [["followee_id", 1]]
+  ↳ app/controllers/user_follows_controller.rb:43:in `map'
+  [1m[36mSleepRecord Load (0.1ms)[0m  [1m[34mSELECT *, sleep_time - wake_time AS duration FROM "sleep_records" WHERE "sleep_records"."user_id" IN (?, ?) AND (created_at >= '2023-02-20 00:00:00') ORDER BY duration DESC[0m  [["user_id", 2], ["user_id", 3]]
+  ↳ app/controllers/user_follows_controller.rb:46:in `followers_sleep_records'
+Completed 200 OK in 11ms (Views: 2.2ms | ActiveRecord: 1.5ms | Allocations: 9096)
+
+
